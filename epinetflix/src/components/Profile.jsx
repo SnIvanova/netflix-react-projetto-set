@@ -30,7 +30,7 @@ const Profile = () => {
                     <Dropdown.Item href="#/action-2">French</Dropdown.Item>
                     <Dropdown.Item href="#/action-3">German</Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item href="#/action-4">Japanese</Dropdown.Item>
+                    <Dropdown.Item href="#/action-4">Ukrainian</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </Col>
