@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  background-color: #221f1f !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+i {
+  cursor: pointer;
+}
+
+i:hover {
+  color: rgb(255, 255, 255) !important;
+}
+
+.footer a {
+  text-decoration: none;
+  color: rgb(191, 191, 191) !important;
+}
+
+a:hover {
+  color: rgb(255, 255, 255) !important;
+}
+
+.footer button {
+  border: 2px solid rgb(191, 191, 191);
+  color: rgb(191, 191, 191) !important;
+}
+
+.footer button:hover {
+  border: 2px solid rgb(255, 255, 255);
+  color: white !important;
+}
+
+.alert {
+  color: rgb(255, 66, 66) !important;
+}
+
+.poster {
+  transition: 500ms;
+  cursor: pointer;
+}
+
+.poster:hover {
+  transform: scale(0.9);
+  transition: 500ms;
+}
+
+#kids:hover {
+  color: rgb(255, 255, 255) !important;
+  cursor: pointer;
+}
+
+#nav-dropdown-dark-example {
+  border: 2px solid rgba(191, 191, 191, 0.633);
+}
+
+#nav-dropdown-dark-example:hover {
+  border: 2px solid rgba(255, 255, 255);
+}
+
+h4 {
+  color: rgb(255, 255, 255) !important;
+}
