@@ -1,16 +1,21 @@
-import React from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import React, { useState } from "react";
+import { Navbar, Container, Nav, Form, FormControl, Button, Alert } from "react-bootstrap";
 import { NavLink as RouterNavLink, useLocation } from "react-router-dom";
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { MDBIcon } from 'mdb-react-ui-kit';
+import Search from "./Search";
+import ShowSearch from "./ShowSearch";
 
 const NavBar = () => {
-  const location = useLocation();
-
+    const location = useLocation();
+    const [showSearch, setShowSearch] = useState(false);
+    const [searchResults, setSearchResults] = useState([]);
+    const [searchError, setSearchError] = useState(null);
+  
   const navLinks = [
     { to: "/", text: "Home" },
-    { to: "/twshows", text: "Tv Shows" },
+    { to: "/tvshows", text: "Tv Shows" },
     { to: "/movies", text: "Movies" },
     { to: "/recentlyadded", text: "Recently Added" },
     { to: "/mylist", text: "My List" },
@@ -24,9 +29,26 @@ const NavBar = () => {
     </Nav>
   );
 
+  const handleSearchIconClick = () => {
+    setShowSearch(!showSearch);
+  };
+  const handleSearch = (searchTerm) => 
+  (searchTerm.trim() !== "") 
+  {<Search/>};
+   
   const renderRightNavIcons = () => (
     <Nav className="ms-auto text-light align-items-center">
-      <MDBIcon fas icon="search" className="ms-3 d-none d-lg-inline" />
+      <MDBIcon
+        fas
+        icon="search"
+        className={`ms-3 d-none d-lg-inline${showSearch ? " active" : ""}`}
+        onClick={handleSearchIconClick}
+      />
+      {showSearch ? (
+        <Search onSearch={handleSearch} onCancel={() => setShowSearch(false)} />
+      ) : (
+        searchResults.length > 0 && <ShowSearch results={searchResults} />
+      )}
       <div id="kids" className="ms-3 d-none d-lg-inline">KIDS</div>
       <MDBIcon fas icon="bell" className="ms-3 d-none d-lg-inline" />
       <MDBIcon fas icon="user" className="ms-3 d-none d-lg-inline" />
@@ -49,6 +71,7 @@ const NavBar = () => {
           {renderRightNavIcons()}
         </Navbar.Collapse>
       </Container>
+      {searchError && <Alert variant="danger">{searchError}</Alert>}
     </Navbar>
   );
 };
