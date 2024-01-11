@@ -19,7 +19,6 @@ const NotFound = () => {
           </h4>
           <Button
             onClick={() => {
-              console.log("vorrei tornare a casa...");
               setTimeout(() => {
                 navigate("/");
               }, 1000);

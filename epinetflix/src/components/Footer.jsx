@@ -15,7 +15,7 @@ const SocialIcons = () => (
 
 
 const FooterLink = ({ title, link }) => (
-  <div className="col-md-3 col-sm-6 mb-3">
+  <div className="col-md-1 col-sm-4 mb-2">
     <a href={link} alt={`footer link ${title}`} className="text-light text-decoration-none d-block footer-link">
       {title}
     </a>
