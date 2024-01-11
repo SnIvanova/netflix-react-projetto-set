@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { Navbar, Container, Nav, Form, FormControl, Button, Alert } from "react-bootstrap";
-import { NavLink as RouterNavLink, useLocation } from "react-router-dom";
+import { NavLink as RouterNavLink, useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { MDBIcon } from 'mdb-react-ui-kit';
 import Search from "./Search";
-import ShowSearch from "./ShowSearch";
+import ShowSearch from "./ShowSearch"; 
 
 const NavBar = () => {
     const location = useLocation();
+    const navigate = useNavigate(); // Initialize navigate
     const [showSearch, setShowSearch] = useState(false);
+    const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [searchError, setSearchError] = useState(null);
   
@@ -32,9 +34,15 @@ const NavBar = () => {
   const handleSearchIconClick = () => {
     setShowSearch(!showSearch);
   };
-  const handleSearch = (searchTerm) => 
-  (searchTerm.trim() !== "") 
-  {<Search/>};
+
+  const handleSearch = (searchTerm) => {
+    if (searchTerm.trim() !== "") {
+      // Navigate to the search page
+      navigate(`/search?term=${encodeURIComponent(searchTerm)}`);
+    } else {
+      setSearchError("Please enter a search term");
+    }
+  };
    
   const renderRightNavIcons = () => (
     <Nav className="ms-auto text-light align-items-center">

@@ -9,6 +9,7 @@ import NotFound from "./components/NotFound";
 import Top from "./components/Top";
 import { TvShows } from "./components/TvShows";
 import { Helmet } from "react-helmet";
+import ShowSearch from "./components/ShowSearch"; 
 
 function App() {
   return (
