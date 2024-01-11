@@ -21,6 +21,7 @@ const NavBar = () => {
     { to: "/movies", text: "Movies" },
     { to: "/recentlyadded", text: "Recently Added" },
     { to: "/mylist", text: "My List" },
+    { to: '/settings', text: 'Settings' },
   ];
 
   const renderNavLinks = () => (
@@ -35,6 +36,10 @@ const NavBar = () => {
     setShowSearch(!showSearch);
   };
 
+  const handleUserIconClick = () => {
+    navigate("/profile");
+  };
+
   const handleSearch = (searchTerm) => {
     if (searchTerm.trim() !== "") {
       // Navigate to the search page
@@ -46,12 +51,7 @@ const NavBar = () => {
    
   const renderRightNavIcons = () => (
     <Nav className="ms-auto text-light align-items-center">
-      <MDBIcon
-        fas
-        icon="search"
-        className={`ms-3 d-none d-lg-inline${showSearch ? " active" : ""}`}
-        onClick={handleSearchIconClick}
-      />
+      <MDBIcon fas icon="search" className={`ms-3 d-none d-lg-inline${showSearch ? " active" : ""}`} onClick={handleSearchIconClick} />
       {showSearch ? (
         <Search onSearch={handleSearch} onCancel={() => setShowSearch(false)} />
       ) : (
@@ -59,7 +59,7 @@ const NavBar = () => {
       )}
       <div id="kids" className="ms-3 d-none d-lg-inline">KIDS</div>
       <MDBIcon fas icon="bell" className="ms-3 d-none d-lg-inline" />
-      <MDBIcon fas icon="user" className="ms-3 d-none d-lg-inline" />
+      <MDBIcon fas icon="user" className="ms-3 d-none d-lg-inline" onClick={handleUserIconClick} />
     </Nav>
   );
 

@@ -10,6 +10,8 @@ import Top from "./components/Top";
 import { TvShows } from "./components/TvShows";
 import { Helmet } from "react-helmet";
 import ShowSearch from "./components/ShowSearch"; 
+import Profile from './components/Profile';
+import Settings from "./components/Settings";
 
 function App() {
   return (
@@ -24,7 +26,9 @@ function App() {
           <Route path="/" element={<AllGalleries />} />
           <Route path="/tvshows" element={<TvShows />} />
           <Route path="/search" element={<ShowSearch />} />
-          <Route path="/moviedetails/:id" element={<MovieDetails />} />
+          <Route path="/moviedetails/:id" elemen={<MovieDetails />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
