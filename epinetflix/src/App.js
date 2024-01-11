@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import AllGalleries from "./components/AllGalleries";
@@ -7,11 +8,18 @@ import NavBar from "./components/NavBar";
 import NotFound from "./components/NotFound";
 import Top from "./components/Top";
 import { TvShows } from "./components/TvShows";
+import { Helmet } from "react-helmet";
 
 function App() {
+  const [faviconUrl, setFaviconUrl] = useState(
+    "./assets/favicon.ico"
+  );
   return (
     <BrowserRouter>
       <div>
+      <Helmet>
+          <link rel="icon" type="image/png" href={faviconUrl} sizes="16x16" />
+        </Helmet>
         <NavBar />
         <Top />
         <Routes>
