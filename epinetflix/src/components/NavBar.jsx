@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Navbar, Container, Nav, Form, FormControl, Button, Alert } from "react-bootstrap";
-import { NavLink as RouterNavLink, useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import { NavLink as RouterNavLink, useLocation, useNavigate } from "react-router-dom"; 
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { MDBIcon } from 'mdb-react-ui-kit';
@@ -9,7 +9,7 @@ import ShowSearch from "./ShowSearch";
 
 const NavBar = () => {
     const location = useLocation();
-    const navigate = useNavigate(); // Initialize navigate
+    const navigate = useNavigate(); 
     const [showSearch, setShowSearch] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
@@ -42,7 +42,6 @@ const NavBar = () => {
 
   const handleSearch = (searchTerm) => {
     if (searchTerm.trim() !== "") {
-      // Navigate to the search page
       navigate(`/search?term=${encodeURIComponent(searchTerm)}`);
     } else {
       setSearchError("Please enter a search term");
