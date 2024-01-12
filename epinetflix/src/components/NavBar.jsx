@@ -6,6 +6,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import { MDBIcon } from 'mdb-react-ui-kit';
 import Search from "./Search";
 import ShowSearch from "./ShowSearch"; 
+import SearchPage from "./SearchPage";
 
 const NavBar = () => {
     const location = useLocation();
@@ -22,6 +23,7 @@ const NavBar = () => {
     { to: "/recentlyadded", text: "Recently Added" },
     { to: "/mylist", text: "My List" },
     { to: '/settings', text: 'Settings' },
+    
   ];
 
   const renderNavLinks = () => (
@@ -32,12 +34,16 @@ const NavBar = () => {
     </Nav>
   );
 
-  const handleSearchIconClick = () => {
-    setShowSearch(!showSearch);
-  };
+  //const handleSearchIconClick = () => {
+   // setShowSearch(!showSearch);
+  //};
 
   const handleUserIconClick = () => {
     navigate("/profile");
+  };
+
+  const handleSearchIconClick = () => {
+    navigate("/search");
   };
 
   const handleSearch = (searchTerm) => {
@@ -50,12 +56,7 @@ const NavBar = () => {
    
   const renderRightNavIcons = () => (
     <Nav className="ms-auto text-light align-items-center">
-      <MDBIcon fas icon="search" className={`ms-3 d-none d-lg-inline${showSearch ? " active" : ""}`} onClick={handleSearchIconClick} />
-      {showSearch ? (
-        <Search onSearch={handleSearch} onCancel={() => setShowSearch(false)} />
-      ) : (
-        searchResults.length > 0 && <ShowSearch results={searchResults} />
-      )}
+      <MDBIcon fas icon="search" className={"ms-3 d-none d-lg-inline"} onClick={handleSearchIconClick} />
       <div id="kids" className="ms-3 d-none d-lg-inline">KIDS</div>
       <MDBIcon fas icon="bell" className="ms-3 d-none d-lg-inline" />
       <MDBIcon fas icon="user" className="ms-3 d-none d-lg-inline" onClick={handleUserIconClick} />
@@ -79,7 +80,9 @@ const NavBar = () => {
         </Navbar.Collapse>
       </Container>
       {searchError && <Alert variant="danger">{searchError}</Alert>}
+      
     </Navbar>
+    
   );
 };
 

@@ -12,6 +12,7 @@ import { Helmet } from "react-helmet";
 import ShowSearch from "./components/ShowSearch"; 
 import Profile from './components/Profile';
 import Settings from "./components/Settings";
+import SearchPage from "./components/SearchPage";
 
 function App() {
   return (
@@ -25,10 +26,11 @@ function App() {
         <Routes>
           <Route path="/" element={<AllGalleries />} />
           <Route path="/tvshows" element={<TvShows />} />
-          <Route path="/search" element={<ShowSearch />} />
+          {/*<Route path="/search" element={<ShowSearch />} />*/}
           <Route path="/moviedetails/:id" elemen={<MovieDetails />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
