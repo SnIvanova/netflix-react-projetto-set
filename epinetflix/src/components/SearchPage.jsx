@@ -8,34 +8,58 @@ const SearchPage = () => {
   const [searchError, setSearchError] = useState(null);
   const navigate = useNavigate();
 
+/*   class SearchPage extends Component {
+    state = {
+      searchTerm: "",
+      searchResults: [],
+      searchError: null,
+    };
+   */
+
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
     setSearchError(null);
   };
 
+/*   handleInputChange = (e) => {
+    this.setState({ searchTerm: e.target.value, searchError: null });
+  }; */
+
   const handleSearch = async () => {
     if (searchTerm.trim() !== "") {
+
+/*handleSearch = async () => {
+    const { searchTerm } = this.state; */
+
       try {
         const response = await fetch(`https://www.omdbapi.com/?i=tt3896198&apikey=1acd27f1&s=${searchTerm}`);
         if (response.ok) {
           const data = await response.json();
+     /*   this.setState({ searchResults: data.Search || [] }); */
           setSearchResults(data.Search || []);
         } else {
           console.error("Failed to fetch search results");
+    /*    this.setState({ searchError: "Failed to fetch search results" }); */
           setSearchError("Failed to fetch search results");
         }
       } catch (error) {
         console.error("Error fetching search results:", error);
+  /*    this.setState({ searchError: "Error fetching search results" }); */
         setSearchError("Error fetching search results");
       }
     } else {
+/*   this.setState({ searchError: "Please enter a search term" }); */
       setSearchError("Please enter a search term");
     }
   };
 
   const handleItemClick = (imdbID) => {
+/*  this.navigate(`/details/${imdbID}`); */
     navigate(`/details/${imdbID}`);
   };
+
+/*   render() {
+    const { searchTerm, searchResults, searchError } = this.state; */
 
   return (
     <div className="container mt-4">
