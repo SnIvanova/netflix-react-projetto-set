@@ -16,6 +16,55 @@ const NavBar = () => {
     const [searchResults, setSearchResults] = useState([]);
     const [searchError, setSearchError] = useState(null);
   
+    /* class MovieDetails extends Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            movie: null,
+            loading: true,
+            error: null,
+          };
+        }
+
+        componentDidMount() {
+    this.fetchMovieDetails();
+  }
+async fetchMovieDetails() {
+    const { id } = this.props.match.params;
+
+    try {
+      const response = await fetch(`https://www.omdbapi.com/?apikey=1acd27f1&i=${id}`);
+
+      if (!response.ok) {
+        throw new Error("Movie not found");
+      }
+
+      const data = await response.json();
+      this.setState({
+        movie: data,
+        loading: false,
+      });
+    } catch (error) {
+      this.setState({
+        error: "An error occurred while fetching the movie details",
+        loading: false,
+      });
+    }
+  }
+
+  render() {
+    const { movie, loading, error } = this.state;
+
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+
+    if (error) {
+      return <div>Error: {error}</div>;
+    }
+
+ */
+
   const navLinks = [
     { to: "/", text: "Home" },
     { to: "/tvshows", text: "Tv Shows" },
@@ -34,9 +83,6 @@ const NavBar = () => {
     </Nav>
   );
 
-  //const handleSearchIconClick = () => {
-   // setShowSearch(!showSearch);
-  //};
 
   const handleUserIconClick = () => {
     navigate("/profile");
