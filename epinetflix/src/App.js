@@ -12,6 +12,8 @@ import { Helmet } from "react-helmet";
 import Profile from './components/Profile';
 import Settings from "./components/Settings";
 import SearchPage from "./components/SearchPage";
+import Movies from "./components/Movies";
+
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/search" element={<SearchPage />} />
+          <Route path="/movies" element={<Movies />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

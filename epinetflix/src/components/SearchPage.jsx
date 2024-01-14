@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, FormControl, Button, Alert, Card, Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
+
 const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -62,8 +63,8 @@ const SearchPage = () => {
     const { searchTerm, searchResults, searchError } = this.state; */
 
   return (
-    <div className="container mt-4">
-      <h1>Search</h1>
+    <div className="container mt-4 ">
+      <h1 className="text-white">Search</h1>
       <Form className="d-flex">
         <FormControl
           type="text"
