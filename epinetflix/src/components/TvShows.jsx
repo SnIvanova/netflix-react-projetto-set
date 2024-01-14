@@ -4,7 +4,7 @@ import Gallery from "./Gallery";
 export const TvShows = () => {
   return (
     <div>
-      <Gallery title="Azione senza esclusione di colpi!" search="avengers" />
+      <Gallery title="Action Unleashed: The Avengers Saga" search="avengers" />
     </div>
   );
 };

@@ -4,16 +4,12 @@ import { NavLink as RouterNavLink, useLocation, useNavigate } from "react-router
 import 'mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { MDBIcon } from 'mdb-react-ui-kit';
-import Search from "./Search";
-import ShowSearch from "./ShowSearch"; 
+import Movies from "./Movies";
 import SearchPage from "./SearchPage";
 
 const NavBar = () => {
     const location = useLocation();
     const navigate = useNavigate(); 
-    const [showSearch, setShowSearch] = useState(false);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
     const [searchError, setSearchError] = useState(null);
   
     /* class MovieDetails extends Component {
@@ -80,6 +76,7 @@ async fetchMovieDetails() {
       {navLinks.map(({ to, text }) => (
         <NavLink key={to} to={to} text={text} currentPath={location.pathname} />
       ))}
+{/*       <NavLink to="/movies" text="Movies" currentPath={location.pathname} /> */}
     </Nav>
   );
 
@@ -92,13 +89,6 @@ async fetchMovieDetails() {
     navigate("/search");
   };
 
-  const handleSearch = (searchTerm) => {
-    if (searchTerm.trim() !== "") {
-      navigate(`/search?term=${encodeURIComponent(searchTerm)}`);
-    } else {
-      setSearchError("Please enter a search term");
-    }
-  };
    
   const renderRightNavIcons = () => (
     <Nav className="ms-auto text-light align-items-center">
