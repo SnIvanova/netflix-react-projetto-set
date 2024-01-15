@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row, Alert  } from "react-bootstrap";
 import Carousel from "better-react-carousel";
 import Error from "./Error";
 import Loading from "./Loading";
@@ -14,6 +14,7 @@ const Gallery = (props) => {
   const [movies, setMovies] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
 
 
@@ -21,6 +22,7 @@ const Gallery = (props) => {
     const myList = JSON.parse(localStorage.getItem("myList")) || [];
     myList.push(movie);
     localStorage.setItem("myList", JSON.stringify(myList));
+    setShowAlert(true);
     console.log(`${movie.Title} added to My List`);
   };
 
@@ -68,18 +70,29 @@ const Gallery = (props) => {
     {error && <Error />}
 
     <h4 className="text-left">{props.title}</h4>
+    {showAlert && (
+        <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+          Movie added to My List!
+        </Alert>
+      )}
     <Carousel cols={6} rows={1} gap={10} loop>
       {movies?.Search.map((movie) => (
         <Carousel.Item key={movie.imdbID}>
           <Link to={`/moviedetails/${movie.imdbID}`}>
             <img className="h-75 poster" width="100%" src={movie.Poster} alt={movie.Title} />
           </Link>
-          <Row className="text-center mt-2">
-            <Col>
+          <Row className="mt-3">
+              <Col className="text-center">
               <Button
                 variant="outline-danger"
                 size="sm"
                 onClick={() => handleButtonClick(movie.imdbID)}
+                style={{
+                    borderRadius: "9px",
+                    transition: "0.3s",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
               >
                 View Details
               </Button>
@@ -89,6 +102,12 @@ const Gallery = (props) => {
                 variant="outline-danger"
                 size="sm"
                 onClick={() => handleAddToList(movie)}
+                style={{
+                    borderRadius: "9px",
+                    transition: "0.3s",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
               >
                 Add to My List
               </Button>
