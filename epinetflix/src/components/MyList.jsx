@@ -10,6 +10,12 @@ const MyList = () => {
     setMyList(storedList);
   }, []);
 
+  const handleRemoveFromList = (imdbID) => {
+    const updatedList = myList.filter((movie) => movie.imdbID !== imdbID);
+    setMyList(updatedList);
+    localStorage.setItem("myList", JSON.stringify(updatedList));
+  };
+
   return (
     <Container className="mb-5">
       <h2>My List</h2>
@@ -18,8 +24,13 @@ const MyList = () => {
           <Carousel.Item key={movie.imdbID}>
             <img className="h-75 poster" width="100%" src={movie.Poster} alt={movie.Title} />
             <Col className="text-center">
-              <Button className="my-2" variant="outline-danger" size="sm" disabled>
-                Added to My List
+              <Button
+                className="my-2"
+                variant="outline-danger"
+                size="sm"
+                onClick={() => handleRemoveFromList(movie.imdbID)}
+              >
+                Remove from My List
               </Button>
             </Col>
           </Carousel.Item>
