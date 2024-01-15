@@ -73,7 +73,7 @@ const Gallery = (props) => {
                 size="sm"
                 onClick={() => handleButtonClick(movie.imdbID)}
               >
-                Vai
+               View Details
               </Button>
             </Col>
           </Carousel.Item>
