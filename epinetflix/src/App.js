@@ -13,6 +13,7 @@ import Profile from './components/Profile';
 import Settings from "./components/Settings";
 import SearchPage from "./components/SearchPage";
 import Movies from "./components/Movies";
+import RecentlyAdded from "./components/RecentlyAdded";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/movies" element={<Movies />} />
+          <Route path="/recentlyadded" element={<RecentlyAdded />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />
