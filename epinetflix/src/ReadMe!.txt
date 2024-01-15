@@ -4,3 +4,4 @@ questa applicazione ha componenti che navigano verso parti diverse,
   i film e le pagine aggiunte di recente 
   hanno diverse ricerche che si basano sulla valutazione (è stato difficile farlo per me, forse hai suggerimenti migliori) e l'anno di creazione,
    filtrando e dandoti ciò che è richiesto per vedere
+   add to my list mette nella lista che poi vedere dopo nella My List pagina
