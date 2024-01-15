@@ -55,10 +55,11 @@ const SearchPage = () => {
   };
 
   const handleItemClick = (imdbID) => {
-/*  this.navigate(`/details/${imdbID}`); */
-    navigate(`/details/${imdbID}`);
+    setTimeout(() => {
+      navigate(`/moviedetails/${imdbID}`);
+    }, 500);
   };
-
+/*  this.navigate(`/details/${imdbID}`); */
 /*   render() {
     const { searchTerm, searchResults, searchError } = this.state; */
 
