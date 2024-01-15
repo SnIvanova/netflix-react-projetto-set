@@ -50,7 +50,7 @@ const RecentlyAdded = () => {
       {loading && <Loading />}
       {error && <Error />}
 
-      <h2>Recently Added Movies (2023)</h2>
+      <h2 className="text-white">Recently Added Movies (2023)</h2>
       <Carousel
         itemClass="carousel-item-padding-40-px"
         cols={8} 

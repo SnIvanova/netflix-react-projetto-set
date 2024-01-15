@@ -1,36 +1,46 @@
 import React, { useEffect, useState } from "react";
-import Gallery from "./Gallery";
+import { Button, Col, Container } from "react-bootstrap";
+import Carousel from "better-react-carousel";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const minRating = 7.5;
+  const minRating = 6.5;
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const response = await fetch(`https://www.omdbapi.com/?apikey=1acd27f1&s=movie`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch movies");
-        }
-        const data = await response.json();
-  
-        const movieDetailsPromises = (data.Search || []).map(async (movie) => {
-          const detailsResponse = await fetch(`https://www.omdbapi.com/?apikey=1acd27f1&i=${movie.imdbID}`);
-          if (detailsResponse.ok) {
-            const detailsData = await detailsResponse.json();
-            return { ...movie, rating: detailsData.imdbRating };
-          } else {
-            throw new Error(`Failed to fetch details for ${movie.Title}`);
+        let allMovies = [];
+        const totalPages = 2; 
+        for (let page = 1; page <= totalPages; page++) {
+          const response = await fetch(`https://www.omdbapi.com/?apikey=1acd27f1&s=movie&page=${page}`);
+          
+          if (!response.ok) {
+            throw new Error("Failed to fetch movies");
           }
-        });
-  
-        const movieDetails = await Promise.all(movieDetailsPromises);
-        const filteredMovies = movieDetails.filter(
+
+          const data = await response.json();
+          console.log(data);
+
+          const movieDetailsPromises = (data.Search || []).map(async (movie) => {
+            const detailsResponse = await fetch(`https://www.omdbapi.com/?apikey=1acd27f1&i=${movie.imdbID}`);
+            if (detailsResponse.ok) {
+              const detailsData = await detailsResponse.json();
+              return { ...movie, rating: detailsData.imdbRating };
+            } else {
+              throw new Error(`Failed to fetch details for ${movie.Title}`);
+            }
+          });
+
+          const movieDetails = await Promise.all(movieDetailsPromises);
+          allMovies = allMovies.concat(movieDetails);
+        }
+
+        const filteredMovies = allMovies.filter(
           (movie) => movie.rating && parseFloat(movie.rating) >= minRating
         );
-  
+
         setMovies(filteredMovies);
         setLoading(false);
       } catch (error) {
@@ -38,17 +48,34 @@ const Movies = () => {
         setLoading(false);
       }
     };
-  
+
     fetchMovies();
   }, [minRating]);
 
   return (
-    <div>
-      <h2>Popular Movies</h2>
+    <Container className="mb-5">
       {loading && <p>Loading movies...</p>}
       {error && <p>Error: {error}</p>}
-      {!loading && !error && <Gallery title="Filtered Movies" movies={movies} />}
-    </div>
+
+      <h2 className="text-white">Popular Movies</h2>
+      <Carousel cols={6} rows={1} gap={10} loop>
+        {movies.map((movie) => (
+          <Carousel.Item key={movie.imdbID}>
+            <img className="h-75 poster" width="100%" src={movie.Poster} alt={movie.Title} />
+            <Col className="text-center">
+              <Button
+                className="my-2"
+                variant="outline-danger"
+                size="sm"
+                onClick={() => console.log(`Clicked on ${movie.Title}`)}
+              >
+                View Details
+              </Button>
+            </Col>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+    </Container>
   );
 };
 
