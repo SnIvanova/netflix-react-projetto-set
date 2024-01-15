@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container } from "react-bootstrap";
+import { Button, Col, Container, Alert, Row } from "react-bootstrap";
 import Carousel from "better-react-carousel";
 import Error from "./Error";
 import Loading from "./Loading";
@@ -8,8 +8,17 @@ import { Link, useNavigate } from "react-router-dom";
 const RecentlyAdded = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const handleAddToList = (movie) => {
+    const myList = JSON.parse(localStorage.getItem("myList")) || [];
+    myList.push(movie);
+    localStorage.setItem("myList", JSON.stringify(myList));
+    setShowAlert(true);
+    console.log(`${movie.Title} added to My List`);
+  };
 
   useEffect(() => {
     const fetchRecentlyAddedMovies = async () => {
@@ -50,10 +59,15 @@ const RecentlyAdded = () => {
       {loading && <Loading />}
       {error && <Error />}
 
-      <h2 className="text-white">Recently Added Movies (2023)</h2>
+      <h2 className="text-white mb-4">Recently Added Movies (2023)</h2>
+      {showAlert && (
+        <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+          Movie added to My List!
+        </Alert>
+      )}
       <Carousel
         itemClass="carousel-item-padding-40-px"
-        cols={8} 
+        cols={7} 
         rows={2} 
         gap={10}
         loop
@@ -63,16 +77,39 @@ const RecentlyAdded = () => {
             <Link to={`/moviedetails/${movie.imdbID}`}>
               <img className="h-75 poster" width="100%" src={movie.Poster} alt={movie.Title} />
             </Link>
-            <Col className="text-center">
-              <Button
-                className="my-2"
-                variant="outline-danger"
-                size="sm"
-                onClick={() => handleButtonClick(movie.imdbID)}
-              >
-                View Details
-              </Button>
-            </Col>
+            <Row className="mt-3 text-center">
+              <Col >
+                <Button
+                  variant="outline-danger"
+                  size="sm"
+                  onClick={() => handleButtonClick(movie.imdbID)}
+                  style={{
+                    borderRadius: "9px",
+                    transition: "0.3s",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
+                >
+                  View Details
+                </Button>
+              </Col>
+              <Col >
+                <Button
+                  variant="outline-danger"
+                  size="sm"
+                  onClick={() => handleAddToList(movie)}
+                  style={{
+                    borderRadius: "9px",
+                    transition: "0.3s",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
+                  
+                >
+                  {showAlert ? "Added!" : "Add to My List"}
+                </Button>
+              </Col>
+            </Row>
           </Carousel.Item>
         ))}
       </Carousel>

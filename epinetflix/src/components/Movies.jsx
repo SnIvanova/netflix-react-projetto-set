@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container } from "react-bootstrap";
+import { Button, Col, Container, Alert, Row  } from "react-bootstrap";
 import Carousel from "better-react-carousel";
+import { Link } from "react-router-dom";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
   const [error, setError] = useState(null);
   const minRating = 6.5;
 
@@ -12,6 +14,7 @@ const Movies = () => {
     const myList = JSON.parse(localStorage.getItem("myList")) || [];
     myList.push(movie);
     localStorage.setItem("myList", JSON.stringify(myList));
+    setShowAlert(true);
     console.log(`${movie.Title} added to My List`);
   };
 
@@ -65,28 +68,49 @@ const Movies = () => {
       {error && <p>Error: {error}</p>}
 
       <h2 className="text-white">Popular Movies</h2>
+      {showAlert && (
+        <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+          Movie added to My List!
+        </Alert>
+      )}
       <Carousel cols={6} rows={1} gap={10} loop>
         {movies.map((movie) => (
           <Carousel.Item key={movie.imdbID}>
+          <Link to={`/moviedetails/${movie.imdbID}`}>
             <img className="h-75 poster" width="100%" src={movie.Poster} alt={movie.Title} />
-            <Col className="text-center">
+            </Link>
+            <Row className="mt-3">
+              <Col className="text-center">
               <Button
-                className="my-2"
                 variant="outline-danger"
                 size="sm"
-                onClick={() => console.log(`Clicked on ${movie.Title}`)}
+                onClick={() => handleAddToList (movie.imdbID)}
+                style={{
+                    borderRadius: "9px",
+                    transition: "0.3s",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
               >
                 View Details
               </Button>
+            </Col>
+            <Col>
               <Button
-                className="my-2"
                 variant="outline-danger"
                 size="sm"
                 onClick={() => handleAddToList(movie)}
+                style={{
+                    borderRadius: "9px",
+                    transition: "0.3s",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
               >
                 Add to My List
               </Button>
             </Col>
+          </Row>
           </Carousel.Item>
         ))}
       </Carousel>
