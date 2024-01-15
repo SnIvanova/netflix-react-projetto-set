@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Col, Container } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import Carousel from "better-react-carousel";
 import Error from "./Error";
 import Loading from "./Loading";
@@ -16,6 +16,13 @@ const Gallery = (props) => {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
 
+
+  const handleAddToList = (movie) => {
+    const myList = JSON.parse(localStorage.getItem("myList")) || [];
+    myList.push(movie);
+    localStorage.setItem("myList", JSON.stringify(myList));
+    console.log(`${movie.Title} added to My List`);
+  };
 
    // componentDidMount() {
   //   this.fetchMovies();
@@ -54,32 +61,43 @@ const Gallery = (props) => {
     }, 500);
   };
 
+
   return (
     <Container className="mb-5">
-      {loading && <Loading />}
-      {error && <Error />}
+    {loading && <Loading />}
+    {error && <Error />}
 
-      <h4 className="text-left">{props.title}</h4>
-      <Carousel cols={6} rows={1} gap={10} loop>
-        {movies?.Search.map((movie) => (
-          <Carousel.Item key={movie.imdbID}>
-            <Link to={`/moviedetails/${movie.imdbID}`}>
-              <img className="h-75 poster" width="100%" src={movie.Poster} alt={movie.Title} />
-            </Link>
-            <Col className="text-center">
+    <h4 className="text-left">{props.title}</h4>
+    <Carousel cols={6} rows={1} gap={10} loop>
+      {movies?.Search.map((movie) => (
+        <Carousel.Item key={movie.imdbID}>
+          <Link to={`/moviedetails/${movie.imdbID}`}>
+            <img className="h-75 poster" width="100%" src={movie.Poster} alt={movie.Title} />
+          </Link>
+          <Row className="text-center mt-2">
+            <Col>
               <Button
-                className="my-2"
                 variant="outline-danger"
                 size="sm"
                 onClick={() => handleButtonClick(movie.imdbID)}
               >
-               View Details
+                View Details
               </Button>
             </Col>
-          </Carousel.Item>
-        ))}
-      </Carousel>
-    </Container>
+            <Col>
+              <Button
+                variant="outline-danger"
+                size="sm"
+                onClick={() => handleAddToList(movie)}
+              >
+                Add to My List
+              </Button>
+            </Col>
+          </Row>
+        </Carousel.Item>
+      ))}
+    </Carousel>
+  </Container>
   );
 };
 

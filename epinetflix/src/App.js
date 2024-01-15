@@ -14,6 +14,7 @@ import Settings from "./components/Settings";
 import SearchPage from "./components/SearchPage";
 import Movies from "./components/Movies";
 import RecentlyAdded from "./components/RecentlyAdded";
+import MyList from "./components/MyList";
 
 /* questa applicazione ha componenti che navigano verso parti diverse, 
 le impostazioni e la pagina del profilo navigano verso quelle pagine, 
@@ -41,6 +42,7 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/recentlyadded" element={<RecentlyAdded />} />
+          <Route path="/mylist" element={<MyList />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

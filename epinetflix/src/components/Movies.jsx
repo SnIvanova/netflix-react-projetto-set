@@ -8,6 +8,13 @@ const Movies = () => {
   const [error, setError] = useState(null);
   const minRating = 6.5;
 
+  const handleAddToList = (movie) => {
+    const myList = JSON.parse(localStorage.getItem("myList")) || [];
+    myList.push(movie);
+    localStorage.setItem("myList", JSON.stringify(myList));
+    console.log(`${movie.Title} added to My List`);
+  };
+
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -70,6 +77,14 @@ const Movies = () => {
                 onClick={() => console.log(`Clicked on ${movie.Title}`)}
               >
                 View Details
+              </Button>
+              <Button
+                className="my-2"
+                variant="outline-danger"
+                size="sm"
+                onClick={() => handleAddToList(movie)}
+              >
+                Add to My List
               </Button>
             </Col>
           </Carousel.Item>
