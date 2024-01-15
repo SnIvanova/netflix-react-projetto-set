@@ -1,4 +1,3 @@
-// RecentlyAdded.jsx
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container } from "react-bootstrap";
 import Carousel from "better-react-carousel";
@@ -14,27 +13,33 @@ const RecentlyAdded = () => {
 
   useEffect(() => {
     const fetchRecentlyAddedMovies = async () => {
-        try {
-          const response = await fetch(`https://www.omdbapi.com/?apikey=1acd27f1&s=movie&y=2023`);
+      try {
+        let allMovies = [];
+        const totalPages = 2; 
+        for (let page = 1; page <= totalPages; page++) {
+          const response = await fetch(`https://www.omdbapi.com/?apikey=1acd27f1&s=movie&y=2023&page=${page}`);
           
           if (!response.ok) {
             throw new Error("Failed to fetch recently added movies");
           }
-      
+
           const data = await response.json();
-          console.log("API Response:", data);
-          setMovies(data.Search || []);
-        } catch (error) {
-          console.error("Error fetching recently added movies:", error);
-          setError("An error occurred while fetching recently added movies");
-        } finally {
-          setLoading(false);
+          console.log(data);
+          allMovies = allMovies.concat(data.Search || []);
         }
-      };
+
+        setMovies(allMovies);
+      } catch (error) {
+        setError("An error occurred while fetching recently added movies");
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchRecentlyAddedMovies();
   }, []);
 
-  const handleButtonClick  = (imdbID) => {
+  const handleButtonClick = (imdbID) => {
     setTimeout(() => {
       navigate(`/moviedetails/${imdbID}`);
     }, 500);
@@ -46,7 +51,13 @@ const RecentlyAdded = () => {
       {error && <Error />}
 
       <h2>Recently Added Movies (2023)</h2>
-      <Carousel cols={6} rows={1} gap={10} loop>
+      <Carousel
+        itemClass="carousel-item-padding-40-px"
+        cols={8} 
+        rows={2} 
+        gap={10}
+        loop
+      >
         {movies.map((movie) => (
           <Carousel.Item key={movie.imdbID}>
             <Link to={`/moviedetails/${movie.imdbID}`}>
